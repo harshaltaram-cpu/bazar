@@ -1,0 +1,72 @@
+
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-card {
+      background-color: #1e1e1e;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid #333333;
+    }
+    .login-card h1 { text-align: center; color: #8b5cf6; margin-bottom: 25px; font-size: 1.8rem; }
+    form { display: flex; flex-direction: column; gap: 15px; }
+    label { font-size: 0.9rem; color: #a1a1aa; }
+    input {
+      background-color: #2d2d2d;
+      border: 1px solid #333333;
+      padding: 14px;
+      border-radius: 8px;
+      color: #ffffff;
+      outline: none;
+      transition: border 0.3s;
+    }
+    input:focus { border-color: #8b5cf6; }
+    button {
+      background-color: #8b5cf6;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+    button:hover { background-color: #7c3aed; }
+    .message { text-align: center; margin-top: 15px; color: #ef4444; font-size: 0.85rem; min-height: 20px; }
+
+
+.login-card {
+    width: 90%; /* Responsive width */
+    max-width: 400px;
+    margin: 0 20px;
+    padding: 30px;
+}
+
+/* --- MOBILE RESPONSIVENESS FOR LOGIN --- */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 25px 20px;
+        margin: 0 15px;
+    }
+    
+    .login-card h1 { 
+        font-size: 1.5rem; 
+        margin-bottom: 20px;
+    }
+    
+    input, button {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}

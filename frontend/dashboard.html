@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-base: #121212;
+            --bg-panel: #1e1e1e;
+            --bg-input: #2d2d2d;
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --border: #333333;
+            --sidebar-width: 250px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR --- */
+        aside {
+            width: var(--sidebar-width);
+            background-color: var(--bg-panel);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            padding: 24px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-item {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            border-left: 4px solid var(--primary);
+            border-radius: 4px 8px 8px 4px;
+        }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        header {
+            background-color: var(--bg-panel);
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-title h2 { font-size: 1.4rem; font-weight: 600; }
+        .header-title span { color: var(--text-muted); font-size: 0.85rem; }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-badge {
+            background-color: var(--bg-input);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--border);
+        }
+        .profile-badge i { color: var(--primary); }
+
+        .logout-btn {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .logout-btn:hover {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        /* --- TABS SYSTEM --- */
+        .tab-content {
+            display: none;
+            padding: 30px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- PANELS & TABLES --- */
+        .panel {
+            background-color: var(--bg-panel);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .panel-header {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        tr:last-child td { border-bottom: none; }
+
+        .result-matrix {
+            background: var(--bg-input);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: var(--success);
+            letter-spacing: 2px;
+        }
+
+        /* --- FORM ELEMENTS --- */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;}
+        .form-group label { font-size: 0.9rem; color: var(--text-muted); }
+        
+        input {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border);
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: var(--text-main);
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        input:focus { border-color: var(--primary); }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover { background-color: var(--primary-hover); }
+        .btn-save { background-color: var(--success); padding: 8px 15px; font-size: 0.9rem; }
+        .btn-save:hover { background-color: #059669; }
+
+        .edit-input {
+            width: 80px;
+            padding: 8px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .metric-card { background: var(--bg-panel); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+        .metric-card h4 { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+        .metric-card h2 { font-size: 2rem; margin-top: 10px; color: var(--primary); }
+
+ @media (max-width: 768px) {
+    body { 
+        flex-direction: column; 
+        overflow-y: auto; /* Let the whole page scroll on mobile */
+    }
+    
+    /* Convert Sidebar to a Bottom/Top Nav */
+    aside { 
+        width: 100%; 
+        height: auto; 
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .nav-menu { 
+        flex-direction: row; 
+        overflow-x: auto; /* Allow swiping menu left/right */
+        white-space: nowrap;
+        padding: 10px;
+        gap: 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-item {
+        flex: 0 0 auto; /* Prevent shrinking */
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* Change active indicator from left-border to bottom-border for horizontal menu */
+    .nav-item.active {
+        border-left: none;
+        border-bottom: 3px solid var(--primary);
+        border-radius: 8px 8px 0 0;
+    }
+
+    /* Stack Header Elements */
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    /* Stack Dashboard Metrics */
+    .metrics { 
+        grid-template-columns: 1fr; /* Stacks the 3 cards vertically */
+        gap: 15px; 
+    }
+
+    /* Stack Settings Form */
+    .form-grid {
+        grid-template-columns: 1fr; /* Stacks password fields vertically */
+    }
+
+    /* Handle Table Overflow */
+    .panel { 
+        padding: 15px;
+        overflow-x: auto; 
+    }
+    table { 
+        min-width: 600px; /* Allows horizontal scrolling for tables without breaking layout */
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <aside>
+        <div class="brand">
+            <i class="fa-solid fa-dice"></i> Laxmibazar
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item active" onclick="switchTab('dashboard', this)">
+                <i class="fa-solid fa-chart-line"></i> Dashboard
+            </li>
+            <li class="nav-item" onclick="switchTab('live-results', this)">
+                <i class="fa-solid fa-pen-to-square"></i> Live Results
+            </li>
+            <li class="nav-item" onclick="switchTab('lucky-number', this)">
+                <i class="fa-solid fa-star"></i> Lucky Number
+            </li>
+            <li class="nav-item" onclick="switchTab('settings', this)">
+                <i class="fa-solid fa-gear"></i> Settings
+            </li>
+        </ul>
+    </aside>
+
+    <main>
+        <header>
+            <div class="header-title">
+                <h2 id="page-title">Dashboard Overview</h2>
+                <span id="live-time">Loading time...</span>
+            </div>
+            
+            <div class="header-right">
+                <div class="profile-badge">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span id="top-username">Admin</span>
+                </div>
+                <button id="logoutButton" class="logout-btn">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <div id="dashboard" class="tab-content active">
+            <div class="metrics">
+                <div class="metric-card">
+                    <h4>Total Active Markets</h4>
+                    <h2>3</h2>
+                </div>
+                <div class="metric-card">
+                    <h4>Today's Bids</h4>
+                    <h2>0</h2>
+                </div>
+                <div class="metric-card">
+                    <h4>Registered Users</h4>
+                    <h2>0</h2>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">Today's Market Status</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Market Name</th>
+                            <th>Open Time</th>
+                            <th>Close Time</th>
+                            <th>Live Result Matrix</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dash-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="live-results" class="tab-content">
+            <div class="panel">
+                <div class="panel-header">
+                    Update Market Results
+                    <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">
+                        *Results are saved directly to your browser
+                    </span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Market</th>
+                            <th>Open Panna (3 Digits)</th>
+                            <th>Close Panna (3 Digits)</th>
+                            <th>Preview</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="edit-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="lucky-number" class="tab-content">
+            <div class="panel">
+                <div class="panel-header">
+                    Manage Lucky Numbers
+                    <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">
+                        *Updates instantly on the Home Page
+                    </span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Game Name</th>
+                            <th>Open </th>
+                            <th>Close</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-lucky-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="settings" class="tab-content">
+            <div class="panel" style="max-width: 600px;">
+                <div class="panel-header">Account Security</div>
+                <form id="settings-form">
+                    <div class="form-group">
+                        <label>Admin Username</label>
+                        <input type="text" id="set-username" required>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="set-password" placeholder="Leave blank to keep current">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="set-confirm">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">
+                        <i class="fa-solid fa-shield-check"></i> Update Credentials
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

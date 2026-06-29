@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Record Chart</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Responsive Chart Styling */
+        .chart-wrapper {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: 800px;
+            overflow-x: auto; /* Allows scrolling on small screens */
+        }
+        
+        .chart-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: monospace, sans-serif;
+            font-size: 1.1rem;
+            min-width: 500px; /* Ensures chart doesn't squash too much */
+        }
+
+        .chart-table th, .chart-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .chart-table th {
+            background-color: #8b5cf6;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chart-table tr:nth-child(even) { background-color: #f9fafb; }
+        .chart-table tr:hover { background-color: #f3f4f6; }
+
+        .result-cell {
+            color: #d946ef;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .date-cell {
+            color: #4b5563;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin: 15px 0;
+            padding: 10px 20px;
+            background-color: #ef4444;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover { background-color: #dc2626; }
+
+        @media (max-width: 600px) {
+            .chart-table { font-size: 0.95rem; }
+            .chart-table th, .chart-table td { padding: 8px 10px; }
+            .chart-wrapper { padding: 10px; margin: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1 id="history-title">Loading Chart...</h1>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container" style="background: transparent; box-shadow: none; border: none;">
+            <a href="index.html" class="back-btn">← Back to Live Results</a>
+            
+            <div class="chart-wrapper">
+                <table class="chart-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Open Panel</th>
+                            <th>Jodi</th>
+                            <th>Close Panel</th>
+                        </tr>
+                    </thead>
+                    <tbody id="chart-body">
+                        <!-- History rows will be injected here via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameName = urlParams.get('game');
+
+    if (!gameName) {
+        document.getElementById('history-title').textContent = "Game Not Found";
+        document.getElementById('chart-body').innerHTML = "<tr><td colspan='4'>Please select a game from the home page.</td></tr>";
+        return;
+    }
+
+    document.getElementById('history-title').textContent = `${gameName} - History Chart`;
+    const tbody = document.getElementById('chart-body');
+
+    try {
+        // Fetch real history from backend API
+        const response = await fetch(`http://localhost:5000/api/history/${encodeURIComponent(gameName)}`);
+        const historyData = await response.json();
+
+        if (historyData.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='4'>No history available yet.</td></tr>";
+            return;
+        }
+
+        historyData.forEach(record => {
+            // Format MySQL date properly
+            const dateObj = new Date(record.record_date);
+            const formattedDate = dateObj.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+
+            tbody.innerHTML += `
+                <tr>
+                    <td class="date-cell">${formattedDate}</td>
+                    <td class="result-cell">${record.openPanna}</td>
+                    <td class="result-cell" style="color: #ef4444;">${record.jodi}</td>
+                    <td class="result-cell">${record.closePanna}</td>
+                </tr>
+            `;
+        });
+    } catch (err) {
+        tbody.innerHTML = "<tr><td colspan='4'>Error loading history.</td></tr>";
+    }
+});
+    </script>
+</body>
+</html>

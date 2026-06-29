@@ -1,0 +1,601 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    line-height: 1.6;
+    background-color: rgb(246, 220, 185);
+}
+
+/*-------------------header----------------*/
+
+.header{
+    color: brown;
+    font-size: 20px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.title-img {
+        width: 60px; /* Adjust the size of your images here */
+        height: auto;
+        border-radius: 5px; /* Optional: rounds the corners of the images */
+    }
+
+.Left-Icon {
+        margin-right: -19990px; /* Space between the left image and the title */
+    }
+
+.main-image {
+    width: 100%;
+    max-width: 220px; /* Controls max size without breaking mobile */
+    height: auto;
+    display: block;
+}
+
+
+
+.header-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    
+    background-color: rgb(246, 220, 185);
+    max-width: 100%;
+    margin-top: -10px;
+    border-color: rgb(238, 10, 10);
+    border-radius: 1rem;
+    border-style: solid;
+    padding: 1rem;
+    box-shadow: 0 0px 10px black;
+    
+}
+
+
+.icon{
+    width: 60px; /* Adjust size as needed */
+    height: auto;
+    vertical-align: middle;
+    margin: 0 10px;
+    /* This applies the pulse animation */
+    animation: pulse-animation 1.5s infinite;
+}
+/* Add this to style the images next to the title */
+.title-icon {
+    width: 40px; /* You can increase or decrease this to change the image size */
+    height: auto;
+    vertical-align: middle; /* This keeps the image centered with the text */
+    margin: 0 10px; /* Adds a little space between the image and the text */
+}
+/*--------------------------Main-----------------------*/
+
+.main{
+    color: black;
+    padding: 1rem;
+    text-align: center;
+}
+
+.Main-Info {
+    display: flex;
+    flex-direction: column; /* Stacks image and text vertically */
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background-color: rgb(246, 220, 185);
+    margin-top: -27px;
+    border: 2px solid rgb(238, 10, 10);
+    padding: 2rem 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0px 10px black;
+}
+
+
+.Main-Info h2 {
+    color: black;
+    opacity: 0.9;
+    text-align: center;
+    font-size: 1.4rem;
+    margin: 0; /* Removed the 50rem margin! */
+}
+
+/* Live Image Animation */
+.live-animated-img {
+    width: 40px; /* Adjust size as needed */
+    height: auto;
+    vertical-align: middle;
+    margin: 0 10px;
+    /* This applies the pulse animation */
+    animation: pulse-animation 1.5s infinite; 
+}
+
+/* The Keyframes control how the animation behaves */
+@keyframes pulse-animation {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+        filter: drop-shadow(0 0 5px red); /* Adds a red glow effect */
+    }
+    100% {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+}
+
+/*--------------------------------------App Download------------------------------------*/
+
+.Download{
+    color: black;
+    padding: 1rem;
+    text-align: center;
+}
+
+.download-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: rgb(248, 184, 129);
+    max-width: 100%;
+    margin-top: -27px;
+    border-color: rgb(238, 10, 10);
+    border-style: solid;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: rgb(65, 65, 246);
+    box-shadow: 0 0px 10px black;
+}
+
+.download-info h2{
+    color: black;
+    font-weight: bold;
+}
+
+.download-btn{
+    background-color: blue;
+    max-width: 70%;
+    border-style: solid;
+    text-decoration: none;
+    color: white;
+    border-radius: 20px;
+    font-family: 'poppins', sans-serif;
+    border: none;
+    padding: 5px 27px;
+    box-shadow: 0 0 10px;
+    font-size: large;
+    font-weight: bold;
+    border-color: white;
+
+}
+
+.download-btn:hover{
+    
+    cursor: pointer;
+}
+
+/*----------------------Live Result-------------------------------*/
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Automatically creates columns on desktop, stacks on mobile */
+    gap: 15px;
+    background-color: rgb(246, 220, 185);
+    border: 2px solid rgb(147, 66, 246);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin: 15px;
+    box-shadow: 0 0px 10px black;
+}
+
+.live-title {
+    grid-column: 1 / -1; /* Forces the title to span across all columns */
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(235, 105, 176);
+    font-style: italic;
+    color: rgb(235, 231, 231);
+    font-weight: bold;
+    text-shadow: 1px 1px 3px black;
+}
+
+
+.result-card {
+    width: 100%;
+    background: #fff; /* Added a background so cards stand out */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.result-card h2{
+    color: rgb(52, 5, 155);
+    font-style: italic;
+    border-color: aliceblue;
+    margin-top: -5px;
+    text-shadow: 1px 1px 2px white;
+    text-align: center;
+    
+}
+
+.result-number{
+    text-align: center;
+    font-size: 24px;
+    margin-top: -5px;
+    font-weight: bold;
+    font-style: italic;
+    color: purple;
+    
+}
+
+.result-status {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-radius: 0.25rem;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.result-status.active {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.result-status.closed {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.result-status.upcoming {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.view-btn{
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background-color: blue;
+    margin: 5px auto;
+    max-width: 15%;
+    
+    
+    color: white;
+    border-radius: 0.5rem;
+   
+}
+
+.result-timer{
+    font-style: italic;
+    font-weight: 590;
+    text-align: center;
+}
+
+.line{
+    width: 100%;
+    height: 2px;
+    background: red;
+    
+}
+
+.admin-link-btn {
+            background-color: #ef4444;
+            color: #ffffff !important;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            
+            
+            font-weight: 600;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+            border: 2px solid white;
+        }
+        .admin-link-btn:hover {
+            background-color: #dc2626;
+        }
+
+.contact{
+    color: black;
+    padding: 1rem;
+    text-align: center;
+    margin-top: -20px;
+    box-sizing: border-box;
+    border-style: solid;
+    border-radius: 1rem;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-color: rgb(85, 30, 235);
+    box-shadow: 0 0px 10px black;
+}
+.contact-section h2{
+    font-size: 20px;
+    margin-top: -10px;
+    width: 100%;
+    
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: rgb(255, 0, 0);
+    font-style: italic;
+    color: rgb(235, 231, 231);
+    font-weight: bold;
+    text-shadow: 1px 1px 3px black;
+   
+}
+
+.contact-section p{
+    font-size: 14px;
+    margin-top: 0px;
+    width: 100%;
+    
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    font-style: italic;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    text-shadow: 1px 1px 3px black;
+}
+
+
+.contact-btn{
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    background-color: blue;
+    margin: 15px auto;
+    max-width: 5%;
+    
+    
+    color: white;
+    border-radius: 0.5rem;
+}
+
+/*-----------------------disclaimer--------------------->
+
+/*---------------------- Disclaimer Banner -------------------------*/
+.disclaimer-banner {
+    background-color: #00003b; /* Deep navy blue background */
+    border: 4px solid #ff0000; /* Thick red border */
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px; 
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6);
+    font-family: Arial, sans-serif;
+}
+
+.disclaimer-banner h2 {
+    color: #ffff00; /* Bright yellow */
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.disclaimer-banner p {
+    color: #ffffff; /* White text */
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.disclaimer-banner .highlight-text {
+    color: #ffff00; /* Bright yellow for the final warning */
+    font-weight: bold;
+    font-size: 1.05rem;
+    margin-bottom: 0;
+}
+
+/* Adjustments for smaller mobile screens */
+@media (max-width: 480px) {
+    .disclaimer-banner {
+        padding: 12px;
+        margin: 10px;
+    }
+    .disclaimer-banner h2 {
+        font-size: 1.3rem;
+    }
+    .disclaimer-banner p {
+        font-size: 0.85rem;
+    }
+    .disclaimer-banner .highlight-text {
+        font-size: 0.95rem;
+    }
+}
+
+.info-laxmi{
+    color: black;
+    padding: 1rem;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+}
+
+
+.lucky-number{
+    
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Automatically creates columns on desktop, stacks on mobile */
+    gap: 15px;
+    background-color: rgb(246, 220, 185);
+    border: 2px solid rgb(147, 66, 246);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin: 15px;
+    box-shadow: 0 0px 10px black;
+}
+
+.lucky-title{
+    grid-column: 1 / -1; /* Forces the title to span across all columns */
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(235, 105, 176);
+    font-style: italic;
+    color: rgb(235, 231, 231);
+    font-weight: bold;
+    text-shadow: 1px 1px 3px black;
+}
+
+/* Container for the individual lucky number row */
+.lucky-card {
+    display: flex;
+    justify-content: space-between; /* Pushes child elements to opposite ends */
+    align-items: center; /* Vertically centers the text */
+    background: #fff; /* Gives the card a clean background */
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+}
+
+/* Styling for the Game Name (Left Side) */
+.lucky-card h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: rgb(52, 5, 155); /* Matches your existing theme colors */
+    text-shadow: 1px 1px 2px white;
+    font-style: italic;
+}
+
+/* Styling for the Lucky Number (Right Side) */
+.lucky-number-display {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: purple; /* Matches your existing theme colors */
+    letter-spacing: 2px;
+}
+
+ /* --- MOBILE RESPONSIVENESS FOR INDEX --- */
+@media (max-width: 768px) {
+    /* Stack the header */
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    /* Adjust the download banner text */
+    .download-info h3 {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+    .download-info h2 {
+        font-size: 1.2rem;
+    }
+    
+    /* Adjust result cards to fit screen */
+    .container {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .result-card {
+        width: 100%;
+        max-width: 350px;
+        margin: 10px 0;
+        padding: 15px;
+    }
+    .result-number {
+        font-size: 1.5rem; /* Slightly smaller for mobile */
+    }
+}
+
+/* Styling for Open/Close Lucky Numbers */
+.lucky-number-display {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: purple;
+    text-align: right;
+}
+
+.lucky-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.lucky-label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: normal;
+}
+
+.lucky-val {
+    min-width: 60px; /* Aligns the numbers nicely */
+}
+
+/* --- Lucky Numbers Styling --- */
+.lucky-numbers-section {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.lucky-numbers-section h2 {
+    color: #d32f2f;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.lucky-numbers-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lucky-numbers-table th, 
+.lucky-numbers-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.lucky-numbers-table th {
+    background-color: #333333;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.game-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.lucky-open {
+    color: #4CAF50; /* Green for Open */
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.lucky-close {
+    color: #f44336; /* Red for Close */
+    font-size: 20px;
+    font-weight: bold;
+}
